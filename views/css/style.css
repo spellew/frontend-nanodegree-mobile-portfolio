@@ -29,10 +29,23 @@ form {
   font-weight: 800;
 }
 
+.small {
+  width: 25% !important;
+}
+
+.medium {
+  width: 33.33% !important;
+}
+
+.large {
+  width: 50% !important;
+}
+
 .mover {
   position: fixed;
   width: 256px;
   z-index: -1;
+  /* transition: left 1.2s; */
 }
 
 .randomPizzaContainer {

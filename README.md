@@ -1,55 +1,29 @@
-## Website Performance Optimization portfolio project
+## Website Optimization
 
-Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
+#### Building The Project
+  1. In the root of the frontend-nanodegree-mobile-portfolio folder, run the following command `npm i`.
+  2. After the packages are installed, run the `gulp` command. The built project is now in the dist directory directory.
+  
+#### Running The Tool 
+  1. If you haven't already, run the command `npm i` in the root of the frontend-nanodegree-mobile-portfolio folder.
+  2. Assuming the packages are installed, run the command `gulp run-server`. The console will output a URL, navigate to this URL to access the website.
+  3. If attempting to test the Google Page Speed Insighs of the website, you can use the URL outputted by the console on https://developers.google.com/speed/pagespeed/insights/.
 
-To get started, check out the repository and inspect the code.
+#### Optimizations Made
+  index.html:
+  * I commented out the Google Fonts stylesheet, because the browser comes with it's own stylish fonts.
+  * I used gulp to minify and concatenate, the style.css and print.css files. Now the browser, will make less requests, for a file that takes up much less space.
+  * I commented out the Google Analytics script, because it massively slows down page load, the goal here is to optimize page load.
+  * I also minified the JavaScript file, so the file takes up much less space, and the request made will complete faster.
+  * Image files were also compressed using gulp, now they take up less space, and requests made for images will complete faster.
+  * The index.html file itself was also ran through a gulp minifier.
 
-### Getting started
-
-#### Part 1: Optimize PageSpeed Insights score for index.html
-
-Some useful tips to help you get started:
-
-1. Check out the repository
-1. To inspect the site on your phone, you can run a local server
-
-  ```bash
-  $> cd /path/to/your-project-folder
-  $> python -m SimpleHTTPServer 8080
-  ```
-
-1. Open a browser and visit localhost:8080
-1. Download and install [ngrok](https://ngrok.com/) to the top-level of your project directory to make your local server accessible remotely.
-
-  ``` bash
-  $> cd /path/to/your-project-folder
-  $> ./ngrok http 8080
-  ```
-
-1. Copy the public URL ngrok gives you and try running it through PageSpeed Insights! Optional: [More on integrating ngrok, Grunt and PageSpeed.](http://www.jamescryer.com/2014/06/12/grunt-pagespeed-and-ngrok-locally-testing/)
-
-Profile, optimize, measure... and then lather, rinse, and repeat. Good luck!
-
-#### Part 2: Optimize Frames per Second in pizza.html
-
-To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js. 
-
-You might find the FPS Counter/HUD Display useful in Chrome developer tools described here: [Chrome Dev Tools tips-and-tricks](https://developer.chrome.com/devtools/docs/tips-and-tricks).
-
-### Optimization Tips and Tricks
-* [Optimizing Performance](https://developers.google.com/web/fundamentals/performance/ "web performance")
-* [Analyzing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp.html "analyzing crp")
-* [Optimizing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/optimizing-critical-rendering-path.html "optimize the crp!")
-* [Avoiding Rendering Blocking CSS](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-blocking-css.html "render blocking css")
-* [Optimizing JavaScript](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/adding-interactivity-with-javascript.html "javascript")
-* [Measuring with Navigation Timing](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/measure-crp.html "nav timing api"). We didn't cover the Navigation Timing API in the first two lessons but it's an incredibly useful tool for automated page profiling. I highly recommend reading.
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/eliminate-downloads.html">The fewer the downloads, the better</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/optimize-encoding-and-transfer.html">Reduce the size of text</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/image-optimization.html">Optimize images</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching.html">HTTP caching</a>
-
-### Customization with Bootstrap
-The portfolio was built on Twitter's <a href="http://getbootstrap.com/">Bootstrap</a> framework. All custom styles are in `dist/css/portfolio.css` in the portfolio repo.
-
-* <a href="http://getbootstrap.com/css/">Bootstrap's CSS Classes</a>
-* <a href="http://getbootstrap.com/components/">Bootstrap's Components</a>
+  views/main.js:
+  
+  * I used gulp to minify the images, and changed the src attribute of image elements to these minified images.
+  * I removed the changeSliderLabel function, and replaced it with the newPizzaSize function. This new function returns a string, instead of changing the label itself. This string can be used not only to label pizzas, but also to change the size of pizzas.
+  * Also, functions are moved outside of the resizePizzas function, so they aren't recreated everytime functions are called.
+  * Classes containing styling for the different pizza sizes are added and removed using JavaScript, instead of the JavaScript his will save a lot of resources, that could be used elsewhere.
+  * document.querySelector is replaced by getElementById and getElementByClassName. This is faster, because these newer functions don't search the entire tree for elements.
+  * window.requestAnimationFrame is now used, to ease the animation as the user scrolls. This is the browser's native way of optimizing animations, with frames and repaints.
+  * The main.js file was also ran through a gulp minifier.
